@@ -15,6 +15,7 @@
 
 # Firebase config (if it contains sensitive information)
 firebaseConfig.ts
+firebase.ts
 
 # Debug logs
 npm-debug.log*
