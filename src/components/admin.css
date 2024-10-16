@@ -1,0 +1,50 @@
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.admin-header {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.admin-tabs {
+  margin-bottom: 2rem;
+}
+
+.admin-form {
+  margin-bottom: 2rem;
+}
+
+.admin-form .MuiTextField-root {
+  margin-bottom: 1rem;
+}
+
+.admin-list {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-list-item {
+  border-bottom: 1px solid #eee;
+}
+
+.admin-list-item:last-child {
+  border-bottom: none;
+}
+
+.admin-button {
+  margin-top: 1rem;
+  background-color: #3f51b5;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.admin-button:hover {
+  background-color: #303f9f;
+}

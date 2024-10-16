@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
+import UserDashboard from './components/UserDashboard';
+import AdminDashboard from './components/AdminDashboard';
+import VotingInterface from './components/VotingInterface';
+import AdminLogin from './components/AdminLogin';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Layout />
+      </Router>
+    </AuthProvider>
   );
-}
+};
+
+const Layout: React.FC = () => {
+  const location = useLocation();
+  const hideNavbarRoutes = ['/login', '/register', '/admin-login'];
+
+  return (
+    <>
+      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/vote" element={<VotingInterface />} />
+        {/* ... other routes */}
+      </Routes>
+    </>
+  );
+};
 
 export default App;
