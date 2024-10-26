@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+Voting System - Group Project Submission
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project Overview
+This project is a university election management system created using React and Firebase. It enables students to vote for candidates in real-time, with votes stored and tracked in Firebase Firestore. The system includes functionality for managing elections, candidates, and user votes.
 
-## Available Scripts
+Project Details
+Group Number: Group_15 
 
-In the project directory, you can run:
+Technologies Used
+Front-End Framework: React (Version: 18.x)
+Database: Firebase Firestore (NoSQL)
+Authentication: Firebase Authentication (for user sign-in and access control)
+Hosting: Firebase Hosting
+Storage: Firebase Storage (for candidate images)
 
-### `npm start`
+Firebase Project Setup Instructions
+Firebase Setup:
+Go to Firebase Console and create a new project or select an existing one.
+Enable Firestore for storing collections (elections, candidates, votes).
+Enable Firebase Storage for storing candidate images.
+Enable Firebase Authentication if required for user access control.
+Firestore Database Structure
+Collection: elections
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This collection holds information about each election in the system.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Document ID: Unique ID for each election (e.g., election2024).
+Fields:
+name (String): The name of the election (e.g., "Student Council Election 2024").
+date (Timestamp): The date and time of the election.
+active (Boolean): Indicates if the election is currently active. Only one election should be active at any time.
+Collection: candidates
 
-### `npm test`
+This collection holds information about each candidate running in an election.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Document ID: Unique ID for each candidate (e.g., candidate123).
+Fields:
+name (String): The candidate’s full name.
+party (String): The candidate’s political party or affiliation.
+photoUrl (String): URL pointing to the candidate’s photo stored in Firebase Storage.
+votes (Integer): The current vote count for the candidate.
+category (String): The position the candidate is running for (e.g., "President").
+Collection: votes
 
-### `npm run build`
+This collection tracks individual votes submitted by users.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Document ID: Unique ID for each vote record (generated automatically).
+Fields:
+electionId (String): The ID of the election associated with the vote.
+candidateId (String): The ID of the candidate who received the vote.
+userId (String): The ID of the user who submitted the vote (optional, if tracking individual voters).
+timestamp (Timestamp): The date and time when the vote was submitted.
+Firebase Storage Structure
+Bucket: candidate_images
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This bucket holds the profile images of each candidate, which are uploaded and retrieved by their photoUrl in the candidates collection.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Folder Structure:
+candidate_images/<electionId>/<candidateId>.jpg (e.g., candidate_images/election2024/candidate123.jpg)
 
-### `npm run eject`
+Project Configuration
+Firebase Configuration:
+In the src directory, create a firebaseConfig.js file or use environment variables to securely store Firebase credentials.
+Example Configuration:
+javascript
+Copy code
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
+export const storage = getStorage(app);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Running the Project
+Install Dependencies: Run npm install to install all necessary packages.
+Start the Application: Use npm start to run the app locally.
+Access: Open http://localhost:3000 in a web browser to view the app.
+Hosting and Deployment
+Firebase Hosting:
+Run firebase login and firebase init hosting to set up Firebase Hosting.
+Use firebase deploy to deploy the application.
