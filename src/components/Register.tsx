@@ -30,6 +30,7 @@ export default function Register() {
       await registerUser(email, password);
       navigate('/dashboard');
     } catch (error: any) {
+      console.error(error); // Log the error for debugging
       if (error.code === 'auth/email-already-in-use') {
         setError('An account with this email already exists.');
       } else if (error.code === 'auth/weak-password') {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { submitVote } from '../services/votingService';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../contexts/AuthContext';
 import { Container, Grid, Typography, Button, Card, CardContent, CardMedia, Snackbar, Paper } from '@mui/material';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query, where, doc, getDoc, updateDoc, setDoc, arrayUnion } from 'firebase/firestore';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
+import { getAnalytics } from 'firebase/analytics'; // Example line
 
 const VotingInterface: React.FC = () => {
   const [candidates, setCandidates] = useState<any[]>([]);
@@ -15,6 +16,13 @@ const VotingInterface: React.FC = () => {
   const [hasVoted, setHasVoted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      console.log('User UID:', user.uid); // Access the UID here
+      // You can now use the UID to fetch user-specific data
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchElections = async () => {

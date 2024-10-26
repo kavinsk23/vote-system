@@ -9,7 +9,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login } = useAuth(); // Ensure this is correctly imported and used
 
   const validateEmail = (email: string) => {
     const emailPattern = /^\d{4}csc\d{3}@univ\.jfn\.ac\.lk$/;
@@ -28,9 +28,10 @@ export default function Login() {
     }
 
     try {
-      await login(email, password);
+      await login(email, password); // Ensure login accepts email and password
       navigate('/dashboard');
     } catch (error: any) {
+      console.error(error); // Log the error for debugging
       setError('Failed to log in. Please check your credentials.');
     } finally {
       setLoading(false);
