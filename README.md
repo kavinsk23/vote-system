@@ -1,4 +1,4 @@
-##Voting System - Group Project Submission
+#Voting System - Group Project Submission
 
 Project Overview
 This project is a university election management system created using React and Firebase. It enables students to vote for candidates in real-time, with votes stored and tracked in Firebase Firestore. The system includes functionality for managing elections, candidates, and user votes.
