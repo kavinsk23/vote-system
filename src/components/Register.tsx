@@ -11,7 +11,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const validateEmail = (email: string) => {
-    const emailPattern = /^\d{4}csc\d{3}@univ\.jfn\.ac\.lk$/;
+    const emailPattern = /^2021csc(00[1-9]|0[1-9][0-9]|10[0-6])@univ\.jfn\.ac\.lk$/;
     return emailPattern.test(email);
   };
 
